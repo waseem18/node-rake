@@ -1,5 +1,6 @@
 # node-rake
-A NodeJS implementation of the Rapid Automatic Keyword Extraction.
+[ In development ]
+A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
 
 # Installation
 `npm install node-rake`
