@@ -1,8 +1,8 @@
 {
   "name": "node-rake",
-  "version": "0.0.2",
-  "description": "A NodeJS implementation of the Rapid Automatic Keyword Extraction",
-  "main": "index.js",
+  "version": "0.0.5",
+  "description": "A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +18,5 @@
   "bugs": {
     "url": "https://github.com/waseem18/node-rake/issues"
   },
-  "homepage": "https://github.com/waseem18/node-rake#readme",
-  "dependencies": {
-  }
+  "homepage": "https://github.com/waseem18/node-rake#readme"
 }

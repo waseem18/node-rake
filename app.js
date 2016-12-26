@@ -1,5 +1,5 @@
 var Rake = require('./index.js')
-var path = './stopWords.txt';
+var path = require('./stopWords.txt');
 
 
 
