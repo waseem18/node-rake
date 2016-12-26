@@ -1,6 +1,6 @@
 {
   "name": "node-rake",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A NodeJS implementation of the Rapid Automatic Keyword Extraction",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/waseem18/rake.git"
+    "url": "git+https://github.com/waseem18/node-rake.git"
   },
   "keywords": [
     "keyword-extraction"
@@ -16,10 +16,9 @@
   "author": "Wasim Thabraze",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/waseem18/rake/issues"
+    "url": "https://github.com/waseem18/node-rake/issues"
   },
-  "homepage": "https://github.com/waseem18/rake#readme",
+  "homepage": "https://github.com/waseem18/node-rake#readme",
   "dependencies": {
-    "xregexp": "^3.1.1"
   }
 }
