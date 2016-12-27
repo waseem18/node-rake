@@ -17,4 +17,10 @@ A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
 #### Stopwords source:
   1. http://dev.mysql.com/doc/refman/5.7/en/fulltext-stopwords.html
   
+  
+#### Example : https://runkit.com/5860f5d5c5386f00131cf99b/586258900122ce0014f07ee1
+  
+  
+  
+  
 [![npm](https://img.shields.io/npm/l/node-rake.svg)]()
