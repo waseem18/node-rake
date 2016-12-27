@@ -1,11 +1,12 @@
 var Rake = require('./index.js')
-var path = require('./stopWords.txt');
+var path = require("path");
+var stopwords_path = path.resolve(__dirname+'/'+'stopWords.txt')
 
 
 
 module.exports = {
-  main: function(content){
-    instance = new Rake(content,path)
-    console.log(instance.generate())
+  generate: function(content){
+    instance = new Rake(content,stopwords_path)
+    return instance.generate()
   }
 }
