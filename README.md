@@ -1,4 +1,7 @@
 # node-rake
+[![npm](https://img.shields.io/npm/dm/node-rake.svg)](https://www.npmjs.com/package/node-rake)   [![npm](https://img.shields.io/npm/v/node-rake.svg)]()
+
+
 [ In development ]
 A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
 
@@ -14,4 +17,4 @@ A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
 #### Stopwords source:
   1. http://dev.mysql.com/doc/refman/5.7/en/fulltext-stopwords.html
   
-License: MIT
+[![npm](https://img.shields.io/npm/l/node-rake.svg)]()
