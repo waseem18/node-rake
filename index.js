@@ -50,7 +50,7 @@ class Rake {
         for(var phrase in phrases) {
             var phr = phrases[phrase].replace(/['!"“”’#$%&()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g,'')
             if(phr != ' ' && phr != '') {
-                phrase_list.push(phr)
+                phrase_list.push(phr.trim())
             }
         }
       }
