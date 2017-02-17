@@ -1,5 +1,5 @@
 # node-rake
-[![npm](https://img.shields.io/npm/dm/node-rake.svg)](https://www.npmjs.com/package/node-rake)   [![npm](https://img.shields.io/npm/v/node-rake.svg)]()
+[![Build Status](https://travis-ci.org/waseem18/node-rake.svg?branch=master)](https://travis-ci.org/waseem18/node-rake) [![npm](https://img.shields.io/npm/dm/node-rake.svg)](https://www.npmjs.com/package/node-rake)   [![npm](https://img.shields.io/npm/v/node-rake.svg)]()
 
 
 A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
