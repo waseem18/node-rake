@@ -20,6 +20,19 @@ describe('rake', () => {
       expect(firstKeyword).toEqual("Latent Dirichlet Allocation")
     })
 
+    it("doesn't fail on text containing new lines", () => {
+      let sketchyText = `
+
+      Beyond the debateable minima already implied by the entrenchment of
+      negative liberty, no further, more committal, theory of justice is constitutive of liberal
+      order: indeed this is clearer than the analogous claim that democracy is not
+      constitutive of liberal order.
+
+      `
+      let [firstKeyword, ...rest] = rake.generate(sketchyText)
+      expect(firstKeyword).toEqual("debateable minima")
+    })
+
   })
 
 })
