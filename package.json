@@ -4,7 +4,7 @@
   "description": "A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/waseem18/node-rake/issues"
   },
-  "homepage": "https://github.com/waseem18/node-rake#readme"
+  "homepage": "https://github.com/waseem18/node-rake#readme",
+  "devDependencies": {
+    "babel-jest": "^18.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "jest": "^18.1.0"
+  }
 }
