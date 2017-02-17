@@ -48,7 +48,7 @@ class Rake {
     for (var s in sentence_list) {
         var phrases = this.removeStopWords(sentence_list[s]);
         for(var phrase in phrases) {
-            var phr = phrases[phrase].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()‘’]/g,'')
+            var phr = phrases[phrase].replace(/['!"“”’#$%&()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g,'')
             if(phr != ' ' && phr != '') {
                 phrase_list.push(phr)
             }
