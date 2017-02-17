@@ -8,7 +8,14 @@ A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
 # Installation
 `npm install node-rake`
 
+# Usage
 
+```javascript
+import rake from 'node-rake'
+//or
+let rake = require('node-rake')
+let keywords = rake.generate("LDA stands for Latent Dirichlet Allocation")
+```
 
 #### Algorithm sources:
   1.https://www.researchgate.net/publication/227988510_Automatic_Keyword_Extraction_from_Individual_Documents
