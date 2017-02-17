@@ -2,7 +2,6 @@
 [![npm](https://img.shields.io/npm/dm/node-rake.svg)](https://www.npmjs.com/package/node-rake)   [![npm](https://img.shields.io/npm/v/node-rake.svg)]()
 
 
-[ In development ]
 A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
 
 # Installation
