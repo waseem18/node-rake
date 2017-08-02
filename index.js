@@ -1,21 +1,14 @@
-var fs = require('fs');
-
 class Rake {
 
-  constructor(text,stop_words_path){
+  constructor(text, stopwordsList){
     this.text = text;
-    this.stop_words_path = stop_words_path
+    this.stopwords = stopwordsList;
     this.regex_expression = this.buildRegex()
-  }
-
-  getStopWordsFromFile() {
-    var stopwords = fs.readFileSync(this.stop_words_path).toString().split("\n");
-    return stopwords
   }
 
   buildRegex(){
     var reg = ''
-    var stopwords_list = this.getStopWordsFromFile();
+    var stopwords_list = this.stopwords;
     for(var i in stopwords_list){
       var stopword = stopwords_list[i];
       if(i!=stopwords_list.length-1){reg = reg + stopword + '|';}
