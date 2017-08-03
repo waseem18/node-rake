@@ -10,10 +10,27 @@ A NodeJS implementation of the Rapid Automatic Keyword Extraction algorithm.
 # Usage
 
 ```javascript
-import rake from 'node-rake'
+rake.generate(text, opts);
+```
+
+The `opts` param is an object that allows to pass custom params to generate method. Options:
+
+- `stopwords`: Optional. An `array` containing a custom stopwords list. By default, the method uses a stopwords list which comes along (take a look at [Stopwords source](#stopwords-source)).
+
+## Example of usage:
+
+```javascript
+const rake = require('node-rake')
+const keywords = rake.generate("LDA stands for Latent Dirichlet Allocation")
+// it'll output: [ 'Latent Dirichlet Allocation', 'LDA stands' ]
+
 //or
-let rake = require('node-rake')
-let keywords = rake.generate("LDA stands for Latent Dirichlet Allocation")
+
+const myStopwords = ['for', 'the', 'a', 'stands', 'test', 'man', 'woman'];
+const opts = {stopwords: myStopwords};
+
+const keywords = rake.generate("LDA stands for Latent Dirichlet Allocation", opts);
+// it'll output: [ 'Latent Dirichlet Allocation', 'LDA' ]
 ```
 
 #### Algorithm sources:
