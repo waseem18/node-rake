@@ -28,7 +28,7 @@ class Rake {
     const phrases = sentenceList.map(s => this.removeStopWords(s));
     const phraseList = phrases.map(phrase => phrase
       .filter(phr => (phr.replace(reg, '') !== ' ' && phr.replace(reg, '') !== ''))
-      .map(phr => phr.trim())
+      .map(phr => phr.trim()),
     );
     const flattenedList = [].concat(...phraseList);
     return flattenedList;
