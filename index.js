@@ -2,7 +2,7 @@ class Rake {
   constructor(text, stopwordsList) {
     this.text = text;
     this.stopwords = stopwordsList;
-    this.regex_expression = this.buildRegex();
+    this.regexExpression = this.buildRegex();
   }
 
   buildRegex() {
@@ -10,23 +10,23 @@ class Rake {
   }
 
   removeStopWords(sentence) {
-    const reg_exp = this.regex_expression;
-    const r = reg_exp.substring(0, reg_exp.length - 1);
+    const regExp = this.regexExpression;
+    const r = regExp.substring(0, regExp.length - 1);
     const reg = new RegExp(`\\b(?:${r})\\b`, 'ig');
-    const filtered_sentence = sentence.replace(reg, '|').split('|');
-    return filtered_sentence;
+    const filteredSentence = sentence.replace(reg, '|').split('|');
+    return filteredSentence;
   }
 
   splitTextToSentences(text) {
-    const sentences = text.match(/[^\.!\?\:\\]+/g);
+    const sentences = text.match(/[^.!?:\\]+/g);
     const filteredSentences = sentences.filter(s => s.replace(/  +/g, '') !== '');
     return filteredSentences;
   }
 
   generatePhrases(sentenceList) {
-    const reg = /['!"“”’#$%&()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g;
+    const reg = /['!"“”’#$%&()*+,\-./:;<=>?@[\\\]^_`{|}~']/g;
     const phrases = sentenceList.map(s => this.removeStopWords(s));
-    const phraseList = phrases.map((phrase) => phrase
+    const phraseList = phrases.map(phrase => phrase
       .filter(phr => (phr.replace(reg, '') !== ' ' && phr.replace(reg, '') !== ''))
       .map(phr => phr.trim())
     );
@@ -50,8 +50,8 @@ class Rake {
       });
     });
 
-    Object.values(wordFreq).forEach(freq => wordDegree[freq] += wordFreq[freq]);
-    Object.keys(wordFreq).forEach(i => wordScore[i] = wordDegree[i] / (wordFreq[i] * 1.0));
+    Object.values(wordFreq).forEach((freq) => { wordDegree[freq] += wordFreq[freq]; });
+    Object.keys(wordFreq).forEach((i) => { wordScore[i] = wordDegree[i] / (wordFreq[i] * 1.0); });
     return wordScore;
   }
 
@@ -62,7 +62,7 @@ class Rake {
       phraseScores[phrase] = 0;
       let candidateScore = 0;
       const wordList = phrase.match(/(\b[^\s]+\b)/g);
-      wordList.forEach(word => candidateScore += wordScore[word]);
+      wordList.forEach((word) => { candidateScore += wordScore[word]; });
       phraseScores[phrase] = candidateScore;
     });
     return phraseScores;
@@ -73,11 +73,11 @@ class Rake {
   }
 
   generate() {
-    const sentence_list = this.splitTextToSentences(this.text);
-    const phrases_list = this.generatePhrases(sentence_list);
-    const word_scores = this.calculateKeywordScores(phrases_list);
-    const phrase_scores = this.calculatePhraseScores(phrases_list, word_scores);
-    const result = this.sortPhrases(phrase_scores);
+    const sentenceList = this.splitTextToSentences(this.text);
+    const phrasesList = this.generatePhrases(sentenceList);
+    const wordScores = this.calculateKeywordScores(phrasesList);
+    const phraseScores = this.calculatePhraseScores(phrasesList, wordScores);
+    const result = this.sortPhrases(phraseScores);
     return result;
   }
 }
