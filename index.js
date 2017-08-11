@@ -1,116 +1,85 @@
 class Rake {
-
-  constructor(text, stopwordsList){
+  constructor(text, stopwordsList) {
     this.text = text;
     this.stopwords = stopwordsList;
-    this.regex_expression = this.buildRegex()
+    this.regex_expression = this.buildRegex();
   }
 
-  buildRegex(){
-    var reg = ''
-    var stopwords_list = this.stopwords;
-    for(var i in stopwords_list){
-      var stopword = stopwords_list[i];
-      if(i!=stopwords_list.length-1){reg = reg + stopword + '|';}
-      else{reg = reg + stopword;}
-    }
-    return reg;
+  buildRegex() {
+    return this.stopwords.join('|');
   }
 
   removeStopWords(sentence) {
-    var reg_exp = this.regex_expression
-    var r = reg_exp.substring(0, reg_exp.length - 1);
-    var reg = new RegExp('\\b(?:' + r + ')\\b','ig')
-    var filtered_sentence  = sentence.replace(reg,'|').split('|')
-    return filtered_sentence
+    const reg_exp = this.regex_expression;
+    const r = reg_exp.substring(0, reg_exp.length - 1);
+    const reg = new RegExp(`\\b(?:${r})\\b`, 'ig');
+    const filtered_sentence = sentence.replace(reg, '|').split('|');
+    return filtered_sentence;
   }
 
-  splitTextToSentences(text){
-    var sentences = text.match( /[^\.!\?\:\\]+/g );
-    var filtered_sentences = []
-    for(var i in sentences){
-      var s = sentences[i].replace(/  +/g, "");
-      if(s != ""){filtered_sentences.push(s)}
-    }
-    return filtered_sentences
+  splitTextToSentences(text) {
+    const sentences = text.match(/[^\.!\?\:\\]+/g);
+    const filteredSentences = sentences.filter(s => s.replace(/  +/g, '') !== '');
+    return filteredSentences;
   }
 
-
-  generatePhrases(sentence_list) {
-    var phrase_list = []
-    for (var s in sentence_list) {
-        var phrases = this.removeStopWords(sentence_list[s]);
-        for(var phrase in phrases) {
-            var phr = phrases[phrase].replace(/['!"“”’#$%&()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g,'')
-            if(phr != ' ' && phr != '') {
-                phrase_list.push(phr.trim())
-            }
-        }
-      }
-    return phrase_list
+  generatePhrases(sentenceList) {
+    const reg = /['!"“”’#$%&()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g;
+    const phrases = sentenceList.map(s => this.removeStopWords(s));
+    const phraseList = phrases.map((phrase) => phrase
+      .filter(phr => (phr.replace(reg, '') !== ' ' && phr.replace(reg, '') !== ''))
+      .map(phr => phr.trim())
+    );
+    const flattenedList = [].concat(...phraseList);
+    return flattenedList;
   }
 
-  //Generates score for each word.
-  calculateKeywordScores(phrase_list) {
-    var word_freq = {}
-    var word_degree = {}
-    var word_score = {}
-    for(var phrase in phrase_list) {
+  // Generates score for each word.
+  calculateKeywordScores(phraseList) {
+    const wordFreq = {};
+    const wordDegree = {};
+    const wordScore = {};
+    phraseList.forEach((phrase) => {
+      const wordList = phrase.match(/[,.!?;:/‘’“”]|\b[0-9a-z']+\b/gi);
+      const wordListDegree = wordList.length;
+      wordList.forEach((word) => {
+        wordFreq[word] = 0;
+        wordFreq[word] += 1;
+        wordDegree[word] = 0;
+        wordDegree[word] += wordListDegree;
+      });
+    });
 
-      var word_list = phrase_list[phrase].match(/[,.!?;:/‘’“”]|\b[0-9a-z']+\b/gi)
-      var word_list_degree = word_list.length
-      for(var word in word_list){
-        word_freq[word_list[word]] = 0;
-        word_freq[word_list[word]] +=1;
-        word_degree[word_list[word]] = 0;
-        word_degree[word_list[word]] += word_list_degree;
-      }
-    }
-
-    for(var i in word_freq) {
-      var freq = word_freq[i];
-      word_degree[freq] = word_degree[freq] + word_freq[freq];
-    }
-
-    for(var i in word_freq){
-      word_score[i] = 0;
-      word_score[i] = word_degree[i] / (word_freq[i] * 1.0);
-    }
-    return word_score
+    Object.values(wordFreq).forEach(freq => wordDegree[freq] += wordFreq[freq]);
+    Object.keys(wordFreq).forEach(i => wordScore[i] = wordDegree[i] / (wordFreq[i] * 1.0));
+    return wordScore;
   }
 
-  //Generates score for each phrase based on the word scores.
-  calculatePhraseScores(phrase_list, word_score) {
-    var phrase_scores = {}
-    for(var p in phrase_list){
-        var phrase = phrase_list[p];
-        phrase_scores[phrase] = 0;
-        var word_list = phrase.match(/(\b[^\s]+\b)/g)
-        var candidate_score = 0;
-        for(var w in word_list){
-            var word = word_list[w];
-            candidate_score += word_score[word];
-        }
-        phrase_scores[phrase] = candidate_score;
-    }
-    return phrase_scores
+  // Generates score for each phrase based on the word scores.
+  calculatePhraseScores(phraseList, wordScore) {
+    const phraseScores = {};
+    phraseList.forEach((phrase) => {
+      phraseScores[phrase] = 0;
+      let candidateScore = 0;
+      const wordList = phrase.match(/(\b[^\s]+\b)/g);
+      wordList.forEach(word => candidateScore += wordScore[word]);
+      phraseScores[phrase] = candidateScore;
+    });
+    return phraseScores;
   }
 
   sortPhrases(obj) {
-    var keys = []; for(var key in obj) keys.push(key);
-    return keys.sort(function(a,b){return obj[b]-obj[a]});
+    return Object.keys(obj).sort((a, b) => obj[b] - obj[a]);
   }
 
-
   generate() {
-    var sentence_list = this.splitTextToSentences(this.text);
-    var phrases_list = this.generatePhrases(sentence_list);
-    var word_scores = this.calculateKeywordScores(phrases_list)
-    var phrase_scores = this.calculatePhraseScores(phrases_list, word_scores)
-    var result = this.sortPhrases(phrase_scores)
-    return result
+    const sentence_list = this.splitTextToSentences(this.text);
+    const phrases_list = this.generatePhrases(sentence_list);
+    const word_scores = this.calculateKeywordScores(phrases_list);
+    const phrase_scores = this.calculatePhraseScores(phrases_list, word_scores);
+    const result = this.sortPhrases(phrase_scores);
+    return result;
   }
 }
 
-
-module.exports = Rake
+module.exports = Rake;
