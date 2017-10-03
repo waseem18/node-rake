@@ -43,10 +43,18 @@ class Rake {
       const wordList = phrase.match(/[,.!?;:/‘’“”]|\b[0-9a-z']+\b/gi);
       const wordListDegree = wordList.length;
       wordList.forEach((word) => {
-        wordFreq[word] = 0;
-        wordFreq[word] += 1;
-        wordDegree[word] = 0;
-        wordDegree[word] += wordListDegree;
+        if (wordFreq[word]) {
+          wordFreq[word] += 1;
+        }
+        else {
+          wordFreq[word] = 1;
+        }
+        if (wordDegree[word]) {
+          wordDegree[word] += wordListDegree;
+        }
+        else {
+          wordDegree[word] = wordListDegree;
+        }
       });
     });
 
