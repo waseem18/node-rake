@@ -41,21 +41,23 @@ class Rake {
     const wordScore = {};
     phraseList.forEach((phrase) => {
       const wordList = phrase.match(/[,.!?;:/‘’“”]|\b[0-9a-z']+\b/gi);
-      const wordListDegree = wordList.length;
-      wordList.forEach((word) => {
-        if (wordFreq[word]) {
-          wordFreq[word] += 1;
-        }
-        else {
-          wordFreq[word] = 1;
-        }
-        if (wordDegree[word]) {
-          wordDegree[word] += wordListDegree;
-        }
-        else {
-          wordDegree[word] = wordListDegree;
-        }
-      });
+      if(wordList){
+        const wordListDegree = wordList.length;
+        wordList.forEach((word) => {
+          if (wordFreq[word]) {
+            wordFreq[word] += 1;
+          }
+          else {
+            wordFreq[word] = 1;
+          }
+          if (wordDegree[word]) {
+            wordDegree[word] += wordListDegree;
+          }
+          else {
+            wordDegree[word] = wordListDegree;
+          }
+        });
+      }
     });
 
     Object.values(wordFreq).forEach((freq) => { wordDegree[freq] += wordFreq[freq]; });
