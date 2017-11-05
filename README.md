@@ -41,7 +41,9 @@ const keywords = rake.generate("LDA stands for Latent Dirichlet Allocation", opt
   1. http://dev.mysql.com/doc/refman/5.7/en/fulltext-stopwords.html
   
   
-#### Example : https://runkit.com/5860f5d5c5386f00131cf99b/586258900122ce0014f07ee1
+#### Example : 
+  1. https://runkit.com/waseem18/59fe9c7d20e52f0012606fbe
+  2. https://runkit.com/waseem18/59fe9d1b5fbc910012f99891
   
   
   
