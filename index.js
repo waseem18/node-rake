@@ -71,7 +71,7 @@ class Rake {
     phraseList.forEach((phrase) => {
       phraseScores[phrase] = 0;
       let candidateScore = 0;
-      const wordList = phrase.match(/(\b[^\s]+\b)/g);
+      const wordList = phrase.match(/([^\s]+)/g);
       wordList.forEach((word) => { candidateScore += wordScore[word]; });
       phraseScores[phrase] = candidateScore;
     });
