@@ -60,7 +60,12 @@ class Rake {
       }
     });
 
-    Object.values(wordFreq).forEach((freq) => { wordDegree[freq] += wordFreq[freq]; });
+   
+  var vals = Object.keys(wordFreq).map(function(key) {
+		return wordFreq[key];
+	});
+
+    vals.forEach((freq) => { wordDegree[freq] += wordFreq[freq]; });
     Object.keys(wordFreq).forEach((i) => { wordScore[i] = wordDegree[i] / (wordFreq[i] * 1.0); });
     return wordScore;
   }
