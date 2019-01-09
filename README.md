@@ -49,3 +49,7 @@ const keywords = rake.generate("LDA stands for Latent Dirichlet Allocation", opt
   
   
 [![npm](https://img.shields.io/npm/l/node-rake.svg)]()
+
+
+### Note :
+Looking for a maintainer for this project.
