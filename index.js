@@ -19,7 +19,7 @@ class Rake {
 
   splitTextToSentences(text) {
     const sentences = text.match(/[^.!?:\\]+/g);
-    const filteredSentences = sentences.filter(s => s.replace(/  +/g, '') !== '');
+    const filteredSentences = sentences.filter(s => s.replace(/ +/g, '') !== '');
     return filteredSentences;
   }
 
@@ -30,7 +30,7 @@ class Rake {
       .filter(phr => (phr.replace(reg, '') !== ' ' && phr.replace(reg, '') !== ''))
       .map(phr => phr.trim())
     );
-    const flattenedList = [].concat(...phraseList);
+    const flattenedList = phraseList.flat(Infinity)
     return flattenedList;
   }
 
@@ -39,29 +39,22 @@ class Rake {
     const wordFreq = {};
     const wordDegree = {};
     const wordScore = {};
-    phraseList.forEach((phrase) => {
+    const fineTune = 1.0
+    phraseList.forEach(phrase => {
       const wordList = phrase.match(/[,.!?;:/‘’“”]|\b[0-9a-z']+\b/gi);
-      if(wordList){
+      if (wordList) {
         const wordListDegree = wordList.length;
         wordList.forEach((word) => {
-          if (wordFreq[word]) {
-            wordFreq[word] += 1;
-          }
-          else {
-            wordFreq[word] = 1;
-          }
-          if (wordDegree[word]) {
-            wordDegree[word] += wordListDegree;
-          }
-          else {
-            wordDegree[word] = wordListDegree;
-          }
+          if (wordFreq[word]) wordFreq[word] += 1;
+          else wordFreq[word] = 1;
+          if (wordDegree[word]) wordDegree[word] += wordListDegree;
+          else wordDegree[word] = 1;
         });
       }
     });
-
-    Object.values(wordFreq).forEach((freq) => { wordDegree[freq] += wordFreq[freq]; });
-    Object.keys(wordFreq).forEach((i) => { wordScore[i] = wordDegree[i] / (wordFreq[i] * 1.0); });
+    
+    //Object.values(wordFreq).forEach((freq) => { wordDegree[freq] += wordFreq[freq] }); //unecessary and causes errors without transfering them 
+    Object.keys(wordFreq).forEach((i) => { wordScore[i] = wordDegree[i] / (wordFreq[i] * fineTune) });
     return wordScore;
   }
 
@@ -92,4 +85,4 @@ class Rake {
   }
 }
 
-module.exports = Rake;
+module.exports =  Rake;
